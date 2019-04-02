@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>specifytype</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script type="text/javascript" src="js/audio.js"></script>
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script type="text/javascript">
+        function setAudioTime1() {
+            for (var i = $("audio#audiohide").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd")[i].innerText = min + ":" + second;
+            }
+            for (var i = $("audio#audiohide2").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide2")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd2")[i].innerText = min + ":" + second;
+            }
+//            $("td#timeTd2")[9].innerText = $("audio#audiohide2")[9].duration;
+//            $("td#timeTd2")[8].innerText = $("audio#audiohide2")[8].duration;
+//            $("td#timeTd2")[7].innerText = $("audio#audiohide2")[7].duration;
+//            $("td#timeTd2")[6].innerText = $("audio#audiohide2")[6].duration;
+//            $("td#timeTd2")[5].innerText = $("audio#audiohide2")[5].duration;
+//            $("td#timeTd2")[4].innerText = $("audio#audiohide2")[4].duration;
+//            $("td#timeTd2")[3].innerText = $("audio#audiohide2")[3].duration;
+//            $("td#timeTd2")[2].innerText = $("audio#audiohide2")[2].duration;
+//            $("td#timeTd2")[1].innerText = $("audio#audiohide2")[1].duration;
+//            $("td#timeTd2")[0].innerText = $("audio#audiohide2")[0].duration;
+        }
+
+        function setAudioTime2() {
+            for (var i = $("audio#audiohide2").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide2")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd2")[i].innerText = min + ":" + second;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="row">
+    <div class="navbar navbar-inverse navbar-fixed-top nav-justified navbar-top-blue"
+         role="navigation" id="menu-nav">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle"
+                                data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">切换导航</span> <span class="icon-bar"></span>
+                            <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><strong>MyTune</strong></a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav my-navbar-nav">
+                            <li><a href="/">发现音乐</a></li>
+                            <li  class="active"><a href="/totypemusic">分类歌单</a></li>
+                            <li><a href="/musics">音乐播放</a></li>
+                            <li><a>电台</a></li>
+                            <li><a>直播</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3" style="height: 50px">
+                    <div class="navbar-collapse collapse">
+                        <form class="form-horizontal" role="search" method="get" action="/mysearchresult">
+                            <div class="form-group">
+                                <div class="center-vertical col-md-10">
+                                    <input id="searchcontent" name="searchcontent" type="text" class="form-control" placeholder="请输入搜索内容"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1" style="height: 50px">
+                    <div class="navbar-collapse collapse">
+                        <form class="form-horizontal" role="form">
+                            <div th:if=${session.currentUser==null} class="form-group">
+                                <div class="col-md-5 col-md-offset-5 center-vertical">
+                                    <a href="#"> <img style="width: 40px; height: 40px"
+                                                      src="img/head.jpeg" class="img-responsive"/>
+                                    </a>
+                                </div>
+                                <div class="col-lg-5 col-lg-offset-7">
+                                    <ul class="nav navbar-nav" id="my-select">
+                                        <li class="dropdown"><a href="/toLogOut">未登陆</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div th:if="${session.currentUser!=null}" class="form-group">
+                                <div class="col-md-5 col-md-offset-5 center-vertical">
+                                    <a href="#"> <img style="width: 40px; height: 40px"
+                                                      th:src="@{${session.currentUser.imagePath}}" class="img-responsive"/>
+                                    </a>
+                                    <!--<span th:value="'src/main/webapp/heads/'${currentUser.imagePath}"></span>-->
+                                </div>
+                                <div class="col-lg-5 col-lg-offset-7">
+                                    <ul class="nav navbar-nav" id="my-select">
+                                        <li class="dropdown"><a href="#"
+                                                                class="dropdown-toggle" data-toggle="dropdown"><span
+                                                th:text=${session.currentUser.nickName}></span><span
+                                                class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="/toMyPrivate">个人中心</a></li>
+                                                <li><a href="toLogOut">退出</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary" style="margin-top: 55px;;border-radius:0px;width: 1000px;margin-left: 250px">
+    <div class="panel-body" style="padding: 30px">
+        <div class="row text-center">
+            <div>
+                <img th:src="@{'/img/musictype/'+${type}+'.png'}"/>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <th style="width: 200px" class="text-center">歌曲名称</th>
+                    <th style="width: 50px"class="text-center">时长</th>
+                    <th style="width: 100px"class="text-center">专辑</th>
+                    <th style="width: 80px"class="text-center">歌手</th>
+                </tr>
+                <tr th:each="musicAndArtistItem:${typeMusicAndArtist}">
+                    <td>
+                        <a th:href="@{/musics(musicid=${musicAndArtistItem.getMusic().getMusicId()})}"
+                           th:text="${musicAndArtistItem.getMusic().getMusicName()}"></a></td>
+                    <td id="timeTd" class="text-center">
+                        <audio id="audiohide" oncanplay="setAudioTime1()">
+                            <source th:src="@{'musics/'+${musicAndArtistItem.getArtist().getArtistCountry()}+'/'+${musicAndArtistItem.getArtist().getSex()}+'/'+${musicAndArtistItem.getArtist().getArtistId()}+'/'+${musicAndArtistItem.getMusic().getMusicId()}+'/'+${musicAndArtistItem.getMusic().getMusicId()}+'.mp3'}"/>
+                        </audio>
+                    </td>
+                    <td th:text="${musicAndArtistItem.getMusic().getAlbum()}"></td>
+                    <td th:text="${musicAndArtistItem.getArtist().getArtistName()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row text-center">
+                <span th:text="${nextPage}+1"/>
+                <!--<span th:text="${#lists.size(typeMusicAndArtist)}"/>-->
+            </div>
+            <div class="row text-center">
+                <a th:unless="${nextPage eq '0'}" th:href="@{/tospecifytype(page=${nextPage}-1,type=${type},size=10)}"
+                   type="submit"
+                   class="btn btn-secondary">
+                    <span class="glyphicon glyphicon-arrow-left"></span>上一页
+                </a>
+                <a th:unless="${isLast}" th:href="@{/tospecifytype(page=${nextPage}+1,type=${type},size=10)}" type="submit"
+                   class="btn btn-secondary">下一页
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

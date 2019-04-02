@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>home</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <script src="../bootstrap/js/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/mystyle.css">
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top nav-justified navbar-top-blue" role="navigation" id="menu-nav">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">MyTune</a>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#ad-carousel">发现音乐</a></li>
+                        <li><a class="active" href="#summary-container">分类歌单</a></li>
+                        <li><a href="#summary-container">我的音乐</a></li>
+                        <li><a href="#summary-container">电台</a></li>
+                        <li><a href="#summary-container">直播</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3" style="height: 50px">
+                <div class="navbar-collapse collapse">
+                    <form class="form-horizontal" role="search">
+                        <div class="form-group">
+                            <div class="center-vertical col-md-10">
+                                <input type="text" class="form-control" placeholder="请输入搜索内容"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-1" style="height: 50px;">
+                <div class="navbar-collapse collapse">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-md-5 col-md-offset-5 center-vertical">
+                                <a href="#">
+                                    <img style="width: 40px;height: 40px" src="../img/head.jpg"
+                                         class="img-responsive"/>
+                                </a>
+                            </div>
+                            <div class="col-lg-5 col-lg-offset-7">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown" style="position:absolute;left:20px;top:0px;z-index:9999;">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">登陆<span
+                                                class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#feature-tab" data-tab="tab-chrome">个人中心</a></li>
+                                            <li><a href="#feature-tab" data-tab="tab-firefox">退出</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

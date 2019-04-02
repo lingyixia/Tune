@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>myprivate</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link href="bootstrap/css/fileinput/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="bootstrap/js/jquery.min.js" charset="UTF-8"></script>
+    <script src="bootstrap/js/fileinput/plugins/sortable.js" type="text/javascript"></script>
+    <script src="bootstrap/js/fileinput/fileinput.js" type="text/javascript"></script>
+    <script src="bootstrap/js/fileinput/locales/fr.js" type="text/javascript"></script>
+    <script src="bootstrap/js/fileinput/locales/es.js" type="text/javascript"></script>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-datetimepicker.min.css">
+    <script type="text/javascript" src="js/audio.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="bootstrap/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <style>
+        .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .kv-avatar {
+            display: inline-block;
+        }
+
+        .kv-avatar .file-input {
+            display: table-cell;
+            width: 213px;
+        }
+
+        .kv-reqd {
+            color: red;
+            font-family: monospace;
+            font-weight: normal;
+        }
+    </style>
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script type="text/javascript">
+        function setAudioTime1() {
+            for (var i = $("audio#audiohide").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd")[i].innerText = min + ":" + second;
+            }
+            for (var i = $("audio#audiohide2").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide2")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd2")[i].innerText = min + ":" + second;
+            }
+        }
+
+        function setAudioTime2() {
+            for (var i = $("audio#audiohide2").length - 1; i >= 0; i--) {
+                var timeCurrent = $("audio#audiohide2")[i].duration;
+                var min = Math.floor(timeCurrent / 60);
+                var second = Math.floor(timeCurrent - min * 60);
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                $("td#timeTd2")[i].innerText = min + ":" + second;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="navbar navbar-inverse navbar-fixed-top nav-justified navbar-top-blue"
+             role="navigation" id="menu-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle"
+                                    data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">切换导航</span> <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"><strong>MyTune</strong></a>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav my-navbar-nav">
+                                <li><a href="/">发现音乐</a></li>
+                                <li><a href="/totypemusic">分类歌单</a></li>
+                                <li><a href="/musics">音乐播放</a></li>
+                                <li><a>电台</a></li>
+                                <li><a>直播</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="search" method="get" action="/mysearchresult">
+                                <div class="form-group">
+                                    <div class="center-vertical col-md-10">
+                                        <input id="searchcontent" name="searchcontent" type="text" class="form-control"
+                                               placeholder="请输入搜索内容"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="form">
+                                <div th:if=${session.currentUser==null} class="form-group">
+                                    <div class="col-md-5 col-md-offset-5 center-vertical">
+                                        <a href="#"> <img style="width: 40px; height: 40px"
+                                                          src="img/head.jpeg" class="img-responsive"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-lg-offset-7">
+                                        <ul class="nav navbar-nav" id="my-select">
+                                            <li class="dropdown"><a href="/toLogOut">未登陆</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div th:if="${session.currentUser!=null}" class="form-group">
+                                    <div class="col-md-5 col-md-offset-5 center-vertical">
+                                        <a href="#"> <img style="width: 40px; height: 40px"
+                                                          th:src="@{${session.currentUser.imagePath}}"
+                                                          class="img-responsive"/>
+                                        </a>
+                                        <!--<span th:value="'src/main/webapp/heads/'${currentUser.imagePath}"></span>-->
+                                    </div>
+                                    <div class="col-lg-5 col-lg-offset-7">
+                                        <ul class="nav navbar-nav" id="my-select">
+                                            <li class="dropdown"><a href="#"
+                                                                    class="dropdown-toggle" data-toggle="dropdown"><span
+                                                    th:text=${session.currentUser.nickName}></span><span
+                                                    class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="/toMyPrivate">个人中心</a></li>
+                                                    <li><a href="toLogOut">退出</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary" style="margin-top: 55px;;border-radius:0px;width: 800px;margin-left: 300px">
+        <div style="border-radius: 0px;">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#message" data-toggle="tab">基本信息</a>
+                </li>
+                <li><a href="#password" data-toggle="tab">修改密码</a></li>
+                <li><a href="#mymusic" data-toggle="tab">我的音乐</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="message">
+                    <div class="col-md-8">
+                        <form class="form-horizontal" action="/updateUserMsg" method="post">
+                            <div class="form-group form-group-md">
+                                <label class="col-md-3 control-label" for="formNickName" th:>昵称：</label>
+                                <div class="col-md-4">
+                                    <input readonly class="form-control" type="text" id="formNickName"
+                                           name="formNickName"
+                                           placeholder="请输入昵称"
+                                           th:value="${currentUser.nickName}">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-md">
+                                <label class="col-md-3 control-label">性别：</label>
+                                <div class="radio" style="padding-top: 0px">
+                                    <label class="radio-inline" style="margin-left: 15px">
+                                        <input th:checked="${currentUser.sex==false}" type="radio"
+                                               name="sex" id="male" value="0"> 男
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input th:checked="${currentUser.sex==true}" type="radio"
+                                               name="sex" id="female" value="1"> 女
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-md">
+                                <label class="col-md-3 control-label" for="formEmail">邮箱：</label>
+                                <div class="col-md-4">
+                                    <input th:value="${currentUser.email}" class="form-control" type="email"
+                                           id="formEmail" name="formEmail" placeholder="请输入邮箱" style="width: 200px">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-md">
+                                <label class="col-md-3 control-label" for="formPhone">手机：</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input th:value="${currentUser.phone}" class="form-control" maxlength="11"
+                                               onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                               type="text" id="formPhone" name="formPhone" placeholder="请输入手机号码">
+                                    </div>
+                                    <div style="margin-top: 5px" class="col-md-2">
+                                        <span id="phoneHint" style="color: red"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-md">
+                                <label class="col-md-3 control-label" for="formDate"
+                                       style="margin-right: 15px">生日：</label>
+                                <div class="controls input-append date form_date" data-date=""
+                                     data-date-format="dd MM yyyy"
+                                     data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                    <input th:value="${#dates.format(currentUser.birthday,'yyyy-MM-dd')}"
+                                           name="formDate" id="formDate" class="form-control"
+                                           size="16" type="text" readonly style="width: 200px">
+                                    <span class="add-on" disabled="true"><i class="icon-remove"></i></span>
+                                    <span class="add-on" disabled="true"><i class="icon-th"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-md">
+                                <div class="control-group">
+                                    <label class="col-md-3 control-label" for="formIntroduce"
+                                           style="margin-right: 15px">个人描述：</label>
+                                    <textarea th:text="${currentUser.introduce}" maxlength="100" name="formIntroduce"
+                                              id="formIntroduce"
+                                              class="form-control" rows="3"
+                                              style="width: 200px;resize: none"></textarea>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" style="margin-left: 180px"
+                                   value="保存信息"/>
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <form class="form form-vertical" method="post" action="/uploadPic"
+                              enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="text-center" style="width: 170px;">
+                                    <div class="kv-avatar">
+                                        <img name="initImg" id="initImg" th:src="@{${currentUser.imagePath}}"
+                                             style="width: 170px;height: 170px;">
+                                        <div class="file-loading">
+                                            <input id="avatar" name="avatar" type="file" required>
+                                        </div>
+                                        <br/>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary" value="保存头像"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
+                </div>
+                <div class="tab-pane fade" id="password">
+                    <form class="form-horizontal" method="post" action="/updatePassword">
+                        <div class="form-group form-group-md">
+                            <label class="col-md-2 control-label" for="formpassword">原密码：</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="password" id="formpassword" name="formpassword"/>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-md">
+                            <label class="col-md-2 control-label" for="formpassword2">重复密码：</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="password" id="formpassword2" name="formpassword2">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-md">
+                            <label class="col-md-2 control-label" for="formnewpassword">新密码：</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="password" id="formnewpassword" name="formnewpassword">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 150px">确认更改</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="mymusic">
+                    <div class="col-md-8">
+                        <table class="table table-bordered table-hover" style="margin-left: 50px">
+                            <tbody>
+                            <tr>
+                                <th style="width: 250px">歌曲名称</th>
+                                <th style="width: 60px">时长</th>
+                                <th style="width: 200px">专辑</th>
+                                <th style="width: 120px">歌手</th>
+                            </tr>
+                            <tr th:each="musicAndArtistItem:${collectionMusicAndArtist}">
+                                <td>
+                                    <a th:href="@{/musics(musicid=${musicAndArtistItem.getMusic().getMusicId()})}"
+                                       th:text="${musicAndArtistItem.getMusic().getMusicName()}"></a></td>
+                                <td id="timeTd">
+                                    <audio id="audiohide" oncanplay="setAudioTime1()">
+                                        <source th:src="@{'musics/'+${musicAndArtistItem.getArtist().getArtistCountry()}+'/'+${musicAndArtistItem.getArtist().getSex()}+'/'+${musicAndArtistItem.getArtist().getArtistId()}+'/'+${musicAndArtistItem.getMusic().getMusicId()}+'/'+${musicAndArtistItem.getMusic().getMusicId()}+'.mp3'}"/>
+                                    </audio>
+                                </td>
+                                <td th:text="${musicAndArtistItem.getMusic().getAlbum()}"></td>
+                                <td th:text="${musicAndArtistItem.getArtist().getArtistName()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+            'onclick="">' +
+            '<i class="glyphicon glyphicon-tag"></i>' +
+            '</button>';
+
+        $("#avatar").fileinput({
+            overwriteInitial: true,
+            maxFileSize: 1500,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img>',
+            layoutTemplates: {main2: '{preview} ' + btnCust + ' {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        }).on("filebatchselected", function (event, files) {
+            $("#initImg").attr("hidden", "true");
+        });
+//        $("#avatar").on("fileuploaded", function(event, data, previewId, index) {
+//            alertView("上传成功!");
+//        });
+    });
+
+</script>
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+</body>
+</html>

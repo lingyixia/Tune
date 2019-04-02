@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>play</title>
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="css/global.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/music.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mystyle.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="navbar navbar-inverse navbar-fixed-top nav-justified navbar-top-blue"
+             role="navigation" id="menu-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle"
+                                    data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">切换导航</span> <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"><strong>MyTune</strong></a>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav my-navbar-nav">
+                                <li><a href="/">发现音乐</a></li>
+                                <li><a href="/totypemusic">分类歌单</a></li>
+                                <li class="active"><a href="/musics">音乐播放</a></li>
+                                <li><a>电台</a></li>
+                                <li><a>直播</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="search" method="get" action="/mysearchresult">
+                                <div class="form-group">
+                                    <div class="center-vertical col-md-10">
+                                        <input id="searchcontent" name="searchcontent" type="text" class="form-control" placeholder="请输入搜索内容"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="form">
+                                <div th:if=${session.currentUser==null} class="form-group">
+                                    <div class="col-md-5 col-md-offset-5 center-vertical">
+                                        <a href="#"> <img style="width: 40px; height: 40px"
+                                                          src="img/head.jpeg" class="img-responsive"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-lg-offset-7">
+                                        <ul class="nav navbar-nav" id="my-select">
+                                            <li class="dropdown"><a href="/toLogOut">未登陆</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div th:if="${session.currentUser!=null}" class="form-group">
+                                    <div class="col-md-5 col-md-offset-5 center-vertical">
+                                        <a href="#"> <img style="width: 40px; height: 40px"
+                                                          th:src="@{${session.currentUser.imagePath}}" class="img-responsive"/>
+                                        </a>
+                                        <!--<span th:value="'src/main/webapp/heads/'${currentUser.imagePath}"></span>-->
+                                    </div>
+                                    <div class="col-lg-5 col-lg-offset-7">
+                                        <ul class="nav navbar-nav" id="my-select">
+                                            <li class="dropdown"><a href="#"
+                                                                    class="dropdown-toggle" data-toggle="dropdown"><span
+                                                    th:text=${session.currentUser.nickName}></span><span
+                                                    class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="/toMyPrivate">个人中心</a></li>
+                                                    <li><a href="toLogOut">退出</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=container" style="margin-top: 100px;width: 100%">
+    <div class="out-content">
+        <div class="content">
+            <div class="content">
+                <div class="content">
+                    <div class="content">
+                        <div class="row" style="margin-top: 60px;margin-left: 200px">
+                            <div class="col-lg-5">
+                                <div class="panel panel-default"
+                                     style="border-width: 1px;background-color: inherit">
+                                    <div class="panel-body" style="padding: 0px;height: 500px;text-align: center">
+                                        <div class="row" style="margin-top: 150px">
+                                            <img id="musicImg" style="width: 150px;height: 150px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="panel panel-default"
+                                     style="border-width: 1px;background-color: inherit;">
+                                    <div id="lrcBox" class="panel-body"
+                                         style="color:white;height: 500px;overflow-y: auto;text-align: center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="music_box">
+        <div>
+            <a href="javascript:void(0)" id="expyes"><span
+                    class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+            <a href="javascript:void(0)" id="expno" style="display: none"><span
+                    class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </div>
+        <div class="play_box">
+            <div class="row control">
+                <div class="col-md-1 col-md-offset-1" style="text-align: center;margin-top: 10px">
+                    <img id="rateImg" src="img/music/user_img.jpg" style="height: 90px;width: 90px">
+                    <span id="pernum">0%</span>
+                    <div id="over"></div>
+                </div>
+                <div class="col-md-3" id="musicMsg">
+                    <p class="playMode"><span>顺序播放</span></p>
+                    <p class="color_white mt10" style="overflow: hidden;width: 75%">
+                            <span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+                                  class="musicName" hidden="true" th:text="${musicList}"></span>
+                        <span id="collect" hidden="true" th:text="${collection}"></span>
+                    </p>
+                    <p class="fs12 author"></p>
+                    <p class="fs12"><span id="ctimer"></span>/<span id="timer"></span></p>
+                </div>
+                <div class="col-md-7 controls_right">
+                    <div class="menu_btn">
+                        <a style="text-decoration: none;" href="javascript:void(0)" id="exlist"
+                           class="music_icon musicList color_white"></a>
+                    </div>
+                    <div class="play_btn">
+                        <a href="javascript:void(0)" class="music_icon prev_song" onclick="playPrev(this)">
+                            <!--上一曲--></a>
+                        <a href="javascript:void(0)" id="play" onclick="newPlay()" class="music_icon play_tb">
+                            <!--播放--></a>
+                        <a href="javascript:void(0)" id="pause" onclick="stop()" class="music_icon pause_tb"
+                           style="display:none;"><!--暂停--></a>
+                        <a href="javascript:void(0)" class="music_icon next_song" onclick="playNext(this)">
+                            <!--下一曲--></a>
+                        <!--播放模式控制-->
+                        <a href="javascript:void(0)" class="music_icon oder_cycle cycle_mode" id="oder_cycle"
+                           onclick="playModeTab(1)"><!--顺序循环--></a>
+                        <a href="javascript:void(0)" class="music_icon random_cycle cycle_mode" id="random_cycle"
+                           onclick="playModeTab(2)" style="display: none;"><!--随机--></a>
+                        <a href="javascript:void(0)" class="music_icon single_cycle cycle_mode" id="single_cycle"
+                           onclick="playModeTab(3)" style="display: none;"><!--单曲循环--></a>
+                        <!--从头开始播放-->
+                        <a href="javascript:void(0)" class=" cycle" onclick="repeat()"><img
+                                src="img/music/replay.png"
+                                width=21/></a>
+                        <a href="javascript:void(0)" class="music_icon volume" id="muted" onclick="muted(false)">
+                            <!--音量--></a>
+                        <a href="javascript:void(0)" class="music_icon volume" id="unMuted" onclick="muted(true)">
+                            <!--音量--></a>
+                        <div style="" class="v_progress" id="v_progress">
+                            <a href="javascript:void(0)" class=" v_percent" id="v_percent"><!--音量进度--></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 50px;text-align: center;margin-right: 160px;">
+                    <a style="font-size: 18px;" id="saveSrcPath" href="/download"><span class="glyphicon glyphicon-download-alt"></span></a>
+                </div>
+            </div>
+            <div class="play_rolling" id="play_rolling">
+                <li id="percent"></li>
+            </div>
+        </div>
+    </div>
+    <!--歌曲列表弹出层-->
+    <div class="play_list" style="display: none">
+        <div class="play_list_title" style="text-align: center">
+
+            <label class="color_white title_name">播放列表</label>
+        </div>
+        <div class="play_list_cont">
+            <ul id="music_list">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!--dojo.js-->
+<script type="text/javascript" src="js/audio.prototype.js"></script>
+<script type="text/javascript" src="js/audio.js"></script>
+</div>
+</body>
+</html>

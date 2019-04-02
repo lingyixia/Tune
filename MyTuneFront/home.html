@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>home</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <style type="text/css">
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="navbar navbar-inverse navbar-fixed-top nav-justified navbar-top-blue" role="navigation"
+             id="menu-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="sr-only">切换导航</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"><strong>MyTune</strong></a>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav my-navbar-nav">
+                                <li class="active"><a href="#" >发现音乐</a></li>
+                                <li><a href="#">分类歌单</a></li>
+                                <li><a href="#">我的音乐</a></li>
+                                <li><a href="#">电台</a></li>
+                                <li><a href="#">直播</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="search">
+                                <div class="form-group">
+                                    <div class="center-vertical col-md-10">
+                                        <input type="text" class="form-control" placeholder="请输入搜索内容"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1" style="height: 50px">
+                        <div class="navbar-collapse collapse">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-md-5 col-md-offset-5 center-vertical">
+                                        <a href="#">
+                                            <img style="width: 40px;height: 40px" src="img/head.jpeg"
+                                                 class="img-responsive"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-lg-offset-7">
+                                        <ul class="nav navbar-nav" id="my-select">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle"
+                                                   data-toggle="dropdown"><span>登陆</span><span
+                                                        class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">个人中心</a></li>
+                                                    <li><a href="#">退出</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 60px">
+        <div class="container-fluid">
+            <div id="myCarousel" class="carousel slide">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner" style="height: 500px">
+                    <div class="item active">
+                        <img class="center-block " src="img/slide1.png" alt="First slide">
+                        <div class="carousel-caption">标题 1</div>
+                    </div>
+                    <div class="item">
+                        <img class="center-block" src="img/slide2.png" alt="Second slide">
+                        <div class="carousel-caption">标题 2</div>
+                    </div>
+                    <div class="item">
+                        <img class="center-block" src="img/slide3.png" alt="Third slide">
+                        <div class="carousel-caption">标题 3</div>
+                    </div>
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="carousel-control left" href="#myCarousel"
+                   data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel"
+                   data-slide="next">&rsaquo;</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 50px">
+        <div class="row">
+            <div class="center-block" style="width: 700px;">
+                <h3 class="panel-title text-center" style="padding-bottom: 10px;font-size: 20px">推荐</h3>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <form class="form-horizontal" role="form">
+                            <ul class="nav navbar-nav my-title-nav">
+                                <li style="width: 350px"><a class="active" style="padding: 12.5px" href="#">发现音乐</a></li>
+                                <li style="width: 350px"><a style="padding: 12.5px" href="#">分类歌单</a></li>
+                            </ul>
+                        </form>
+                    </tr>
+                    <tr>
+                        <th>歌曲名称</th>
+                        <th>时长</th>
+                        <th>专辑</th>
+                        <th>歌手</th>
+                    </tr>
+                    <tr>
+                        <th>歌曲名称</th>
+                        <th>时长</th>
+                        <th>专辑</th>
+                        <th>歌手</th>
+                    </tr>
+                    <tr>
+                        <th>歌曲名称</th>
+                        <th>时长</th>
+                        <th>专辑</th>
+                        <th>歌手</th>
+                    </tr>
+                    <tr>
+                        <th>歌曲名称</th>
+                        <th>时长</th>
+                        <th>专辑</th>
+                        <th>歌手</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="row center-block">
+            <h3 class="panel-title text-center" style="padding-bottom: 10px;font-size: 20px">榜单</h3>
+            <div class="col-md-5">
+                <div class="center-block" style="width: 450px;">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <form class="form-horizontal" role="form">
+                                <ul class="nav navbar-nav my-title-nav">
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">飙升榜</a></li>
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">华语榜</a></li>
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">外文榜</a></li>
+                                </ul>
+                            </form>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-offset-2">
+                <div class="center-block" style="width: 450px;">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <form class="form-horizontal" role="form">
+                                <ul class="nav navbar-nav my-title-nav">
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">歌手榜</a></li>
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">男歌手</a></li>
+                                    <li style="width: 150px"><a style="padding: 12.5px" href="#">女歌手</a></li>
+                                </ul>
+                            </form>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        <tr>
+                            <th>歌曲名称</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

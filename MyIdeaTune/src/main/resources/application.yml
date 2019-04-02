@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mytune
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  thymeleaf:
+    mode: LEGACYHTML5
+
